@@ -7,11 +7,11 @@ enum Network: String, Codable, Hashable, Equatable {
     case fioTestnet
     case jungle
     case jungle3
-    case lynx
     case telos
     case telosTestnet
     case wax
     case waxTestnet
+    case proton
 
     var name: String {
         switch self {
@@ -25,8 +25,8 @@ enum Network: String, Codable, Hashable, Equatable {
             return "Jungle 2 (Testnet)"
         case .jungle3:
             return "Jungle 3 (Testnet)"
-        case .lynx:
-            return "Lynx"
+        case .proton:
+            return "PROTON"
         case .telos:
             return "Telos"
         case .telosTestnet:
@@ -50,8 +50,8 @@ enum Network: String, Codable, Hashable, Equatable {
             return "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
         case .jungle3:
             return "2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840"
-        case .lynx:
-            return "b62febe5aadff3d5399090b9565cb420387d3c66f2ccd7c7ac1f532c4f50f573"
+        case .proton:
+            return "384da888112027f0321850a169f737c33e53b388aad48b5adace4bab97f437e0"
         case .telos:
             return "4667b205c6838ef70ff7988f6e8257e8be0e1284a2f59699054a018f743b1d11"
         case .telosTestnet:
@@ -75,8 +75,8 @@ enum Network: String, Codable, Hashable, Equatable {
             return URL(string: "https://jungle.greymass.com")!
         case .jungle3:
             return URL(string: "https://jungle3.greymass.com")!
-        case .lynx:
-            return URL(string: "https://lynx.greymass.com")!
+        case .proton:
+            return URL(string: "https://proton.greymass.com")!
         case .telos:
             return URL(string: "https://telos.greymass.com")!
         case .telosTestnet:
@@ -94,7 +94,7 @@ enum Network: String, Codable, Hashable, Equatable {
         .fio,
         .telos,
         .wax,
-        .lynx,
+        .proton,
     ]
     static let testNetworks: [Self] = [
         .fioTestnet,
