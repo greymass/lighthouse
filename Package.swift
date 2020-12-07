@@ -8,13 +8,13 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
-        .package(name: "EOSIO", url: "https://github.com/greymass/swift-eosio.git", .branch("master")),
+        .package(name: "swift-eosio", url: "https://github.com/greymass/swift-eosio.git", .branch("master")),
         .package(url: "https://github.com/MrLotU/SwiftPrometheus.git", from: "1.0.0-alpha"),
     ],
     targets: [
         .target(name: "App", dependencies: [
             .product(name: "Vapor", package: "vapor"),
-            "EOSIO",
+            .product(name: "EOSIO", package: "swift-eosio"),
             "SwiftPrometheus",
         ]),
         .target(name: "Run", dependencies: ["App"]),
