@@ -11,7 +11,7 @@ final class AppTests: XCTestCase {
             XCTAssertEqual(res.status, .badRequest)
         }
 
-        try app.test(.GET, "lookup/EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX") { res in
+        try app.test(.GET, "lookup/EOS6RWZ1CmDL4B6LdixuertnzxcRuUDac3NQspJEvMnebGcUwhvfX?includeTestnets") { res in
             XCTAssertEqual(res.status, .ok)
             let accounts = try res.content.decode([AccountLookup.NetworkAccounts].self)
             XCTAssert(!accounts.isEmpty)

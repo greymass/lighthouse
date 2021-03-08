@@ -26,8 +26,8 @@ final class AccountLookup {
         urlSession = URLSession(configuration: config)
     }
 
-    private func networkLookup(req: Vapor.Request, publicKey: PublicKey, network: Network) -> EventLoopFuture<[PermissionLevel]> {
-        let start = Date.timeIntervalSinceReferenceDate
+    // fallback endoint
+    private func historyLookup(req: Vapor.Request, publicKey: PublicKey, network: Network) -> EventLoopFuture<[PermissionLevel]> {
         let client = EOSIO.Client(address: network.nodeUrl, session: urlSession)
         let accounts = client.send(EOSIO.API.V1.History.GetKeyAccounts(publicKey), on: req.eventLoop).flatMap { res in
             res.accountNames.map { name in
@@ -43,12 +43,51 @@ final class AccountLookup {
                     }
                 }
             }
+            return rv
+        }
+    }
+
+    // new chain endoint
+    private func chainLookup(req: Vapor.Request, publicKey: PublicKey, network: Network) -> EventLoopFuture<[PermissionLevel]> {
+        let client = EOSIO.Client(address: network.nodeUrl, session: urlSession)
+        let accounts = client.send(EOSIO.API.V1.Chain.GetAccountsByAuthorizers(keys: [publicKey]), on: req.eventLoop)
+        return accounts.map { response -> [PermissionLevel] in
+            var rv: [PermissionLevel] = []
+            for account in response.accounts {
+                rv.append(PermissionLevel(account.accountName, account.permissionName))
+            }
+            return rv
+        }
+    }
+
+    private func networkLookup(req: Vapor.Request, publicKey: PublicKey, network: Network) -> EventLoopFuture<[PermissionLevel]> {
+        let start = Date.timeIntervalSinceReferenceDate
+        let lookup: EventLoopFuture<[PermissionLevel]>
+        if network.chainLookupSupport {
+            lookup = chainLookup(req: req, publicKey: publicKey, network: network).flatMapError { error in
+                if case let EOSIO.Client.Error.responseError(responseError) = error, responseError.code == 404 {
+                    req.logger.debug("No chain lookup support on \(network), switching to history API")
+                } else {
+                    req.logger.warning(
+                        "Chain lookup error on \(network): \(error), falling back to history API",
+                        metadata: ["network": "\(network)"]
+                    )
+                    Metrics.Counter(
+                        label: "account_lookup_fallbacks",
+                        dimensions: [("network", "\(network)")]
+                    ).increment()
+                }
+                return self.historyLookup(req: req, publicKey: publicKey, network: network)
+            }
+        } else {
+            lookup = historyLookup(req: req, publicKey: publicKey, network: network)
+        }
+        return lookup.always { _ in
             Metrics.Timer(
                 label: "account_lookup_duration_seconds",
                 dimensions: [("network", "\(network)")],
                 preferredDisplayUnit: .seconds
             ).record(Date.timeIntervalSinceReferenceDate - start)
-            return rv
         }
     }
 
