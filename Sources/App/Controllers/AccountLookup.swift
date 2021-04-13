@@ -23,6 +23,8 @@ final class AccountLookup {
     init() {
         let config = URLSessionConfiguration.default
         config.httpMaximumConnectionsPerHost = 10
+        config.timeoutIntervalForRequest = 15
+        config.timeoutIntervalForResource = 30
         urlSession = URLSession(configuration: config)
     }
 
