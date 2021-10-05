@@ -73,7 +73,7 @@ enum Network: String, Codable, Hashable, Equatable {
         case .telos:
             return URL(string: "https://telos.greymass.com")!
         case .telosTestnet:
-            return URL(string: "https://testnet.telos.net")!
+            return URL(string: "https://telostestnet.greymass.com")!
         case .wax:
             return URL(string: "https://wax.greymass.com")!
         case .waxTestnet:
