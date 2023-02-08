@@ -6,6 +6,7 @@ enum Network: String, Codable, Hashable, Equatable {
     case fio
     case fioTestnet
     case jungle3
+    case jungle4
     case telos
     case telosTestnet
     case wax
@@ -22,6 +23,8 @@ enum Network: String, Codable, Hashable, Equatable {
             return "FIO (Testnet)"
         case .jungle3:
             return "Jungle 3 (Testnet)"
+        case .jungle4:
+            return "Jungle 4 (Testnet)"
         case .proton:
             return "PROTON"
         case .telos:
@@ -45,6 +48,8 @@ enum Network: String, Codable, Hashable, Equatable {
             return "b20901380af44ef59c5918439a1f9a41d83669020319a80574b804a5f95cbd7e"
         case .jungle3:
             return "2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840"
+        case .jungle4:
+            return "73e4385a2708e6d7048834fbc1079f2fabb17b3c125b146af438971e90716c4d"
         case .proton:
             return "384da888112027f0321850a169f737c33e53b388aad48b5adace4bab97f437e0"
         case .telos:
@@ -68,6 +73,8 @@ enum Network: String, Codable, Hashable, Equatable {
             return URL(string: "https://fiotestnet.greymass.com")!
         case .jungle3:
             return URL(string: "https://jungle3.greymass.com")!
+        case .jungle4:
+            return URL(string: "https://jungle4.greymass.com")!
         case .proton:
             return URL(string: "https://proton.greymass.com")!
         case .telos:
@@ -96,6 +103,7 @@ enum Network: String, Codable, Hashable, Equatable {
     static let testNetworks: [Self] = [
         .fioTestnet,
         .jungle3,
+        .jungle4,
         .telosTestnet,
         .waxTestnet,
     ]
