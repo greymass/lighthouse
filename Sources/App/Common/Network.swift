@@ -12,6 +12,9 @@ enum Network: String, Codable, Hashable, Equatable {
     case wax
     case waxTestnet
     case proton
+    case libre
+    case libreTestnet
+    case ux
 
     var name: String {
         switch self {
@@ -36,6 +39,12 @@ enum Network: String, Codable, Hashable, Equatable {
         case .waxTestnet:
             return "WAX (Testnet)"
         }
+        case .libre:
+            return "Libre"
+        case .libreTestnet:
+            return "Libre (Testnet)"
+        case .ux:
+            return "UX"
     }
 
     var chainId: ChainId {
@@ -61,6 +70,12 @@ enum Network: String, Codable, Hashable, Equatable {
         case .waxTestnet:
             return "f16b1833c747c43682f4386fca9cbb327929334a762755ebec17f6f23c9b8a12"
         }
+        case .libre:
+            return "38b1d7815474d0c60683ecbea321d723e83f5da6ae5f1c1f9fecc69d9ba96465"
+        case .libreTestnet:
+            return "b64646740308df2ee06c6b72f34c0f7fa066d940e831f752db2006fcc2b78dee"
+        case .ux:
+            return "8fc6dce7942189f842170de953932b1f66693ad3788f766e777b6f9d22335c02"
     }
 
     var nodeUrl: URL {
@@ -85,6 +100,12 @@ enum Network: String, Codable, Hashable, Equatable {
             return URL(string: "https://wax.greymass.com")!
         case .waxTestnet:
             return URL(string: "https://waxtestnet.greymass.com")!
+        case .libre:
+            return URL(string: "https://libre.greymass.com/")!
+        case .libreTestnet:
+            return URL(string: "https://libretestnet.greymass.com/")!
+        case .ux:
+            return URL(string: "https://api.uxnetwork.io")!
         }
     }
 
@@ -99,6 +120,8 @@ enum Network: String, Codable, Hashable, Equatable {
         .telos,
         .wax,
         .proton,
+        .libre,
+        .ux,
     ]
     static let testNetworks: [Self] = [
         .fioTestnet,
@@ -106,6 +129,7 @@ enum Network: String, Codable, Hashable, Equatable {
         .jungle4,
         .telosTestnet,
         .waxTestnet,
+        .libreTestnet
     ]
     static let allNetworks: [Self] = Self.mainNetworks + Self.testNetworks
 }
