@@ -38,13 +38,13 @@ enum Network: String, Codable, Hashable, Equatable {
             return "WAX"
         case .waxTestnet:
             return "WAX (Testnet)"
-        }
         case .libre:
             return "Libre"
         case .libreTestnet:
             return "Libre (Testnet)"
         case .ux:
             return "UX"
+        }
     }
 
     var chainId: ChainId {
@@ -69,13 +69,13 @@ enum Network: String, Codable, Hashable, Equatable {
             return "1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4"
         case .waxTestnet:
             return "f16b1833c747c43682f4386fca9cbb327929334a762755ebec17f6f23c9b8a12"
-        }
         case .libre:
             return "38b1d7815474d0c60683ecbea321d723e83f5da6ae5f1c1f9fecc69d9ba96465"
         case .libreTestnet:
             return "b64646740308df2ee06c6b72f34c0f7fa066d940e831f752db2006fcc2b78dee"
         case .ux:
             return "8fc6dce7942189f842170de953932b1f66693ad3788f766e777b6f9d22335c02"
+        }
     }
 
     var nodeUrl: URL {
