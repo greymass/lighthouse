@@ -101,9 +101,9 @@ enum Network: String, Codable, Hashable, Equatable {
         case .waxTestnet:
             return URL(string: "https://waxtestnet.greymass.com")!
         case .libre:
-            return URL(string: "https://libre.greymass.com/")!
+            return URL(string: "https://libre.greymass.com")!
         case .libreTestnet:
-            return URL(string: "https://libretestnet.greymass.com/")!
+            return URL(string: "https://libretestnet.greymass.com")!
         case .ux:
             return URL(string: "https://api.uxnetwork.io")!
         }
