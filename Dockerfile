@@ -1,7 +1,7 @@
 # ================================
 # Build image
 # ================================
-FROM vapor/swift:latest as build
+FROM swift:5.3 as build
 WORKDIR /build
 
 # First just resolve dependencies.
@@ -16,9 +16,9 @@ COPY . .
 
 # Compile with optimizations
 RUN swift build \
-	--enable-test-discovery \
-	-c release \
-	-Xswiftc -g
+    --enable-test-discovery \
+    -c release \
+    -Xswiftc -g
 
 # ================================
 # Run image
