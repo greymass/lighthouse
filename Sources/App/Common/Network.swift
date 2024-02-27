@@ -144,7 +144,7 @@ enum Network: String, Codable, Hashable, Equatable {
         .jungle4,
         .telosTestnet,
         .waxTestnet,
-        .libreTestnet
+        .libreTestnet,
         .ayetuTestnet,
     ]
     static let allNetworks: [Self] = Self.mainNetworks + Self.testNetworks
