@@ -65,6 +65,7 @@ final class AccountLookup {
     private func networkLookup(req: Vapor.Request, publicKey: PublicKey, network: Network) -> EventLoopFuture<[PermissionLevel]> {
         let start = Date.timeIntervalSinceReferenceDate
         let lookup: EventLoopFuture<[PermissionLevel]>
+        
         if network.chainLookupSupport {
             lookup = chainLookup(req: req, publicKey: publicKey, network: network).flatMapError { error in
                 if case let EOSIO.Client.Error.responseError(responseError) = error, responseError.code == 404 {
@@ -79,11 +80,18 @@ final class AccountLookup {
                         dimensions: [("network", "\(network)")]
                     ).increment()
                 }
-                return self.historyLookup(req: req, publicKey: publicKey, network: network)
+                return self.historyLookup(req: req, publicKey: publicKey, network: network).flatMapError { historyError in
+                    req.logger.error("History lookup error on \(network): \(historyError)")
+                    return req.eventLoop.future([])
+                }
             }
         } else {
-            lookup = historyLookup(req: req, publicKey: publicKey, network: network)
+            lookup = historyLookup(req: req, publicKey: publicKey, network: network).flatMapError { error in
+                req.logger.error("History lookup error on \(network): \(error)")
+                return req.eventLoop.future([])
+            }
         }
+        
         return lookup.always { _ in
             Metrics.Timer(
                 label: "account_lookup_duration_seconds",
@@ -92,6 +100,7 @@ final class AccountLookup {
             ).record(Date.timeIntervalSinceReferenceDate - start)
         }
     }
+
 
     func lookup(req: Vapor.Request) throws -> EventLoopFuture<[NetworkAccounts]> {
         guard let publicKey = req.parameters.get("key", as: PublicKey.self) else {
