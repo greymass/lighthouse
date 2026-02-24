@@ -14,7 +14,6 @@ enum Network: String, Codable, Hashable, Equatable {
     case proton
     case libre
     case libreTestnet
-    case ux
 
     var name: String {
         switch self {
@@ -42,8 +41,7 @@ enum Network: String, Codable, Hashable, Equatable {
             return "Libre"
         case .libreTestnet:
             return "Libre (Testnet)"
-        case .ux:
-            return "UX"
+
         }
     }
 
@@ -73,8 +71,7 @@ enum Network: String, Codable, Hashable, Equatable {
             return "38b1d7815474d0c60683ecbea321d723e83f5da6ae5f1c1f9fecc69d9ba96465"
         case .libreTestnet:
             return "b64646740308df2ee06c6b72f34c0f7fa066d940e831f752db2006fcc2b78dee"
-        case .ux:
-            return "8fc6dce7942189f842170de953932b1f66693ad3788f766e777b6f9d22335c02"
+
         }
     }
 
@@ -104,8 +101,7 @@ enum Network: String, Codable, Hashable, Equatable {
             return URL(string: "https://libre.greymass.com")!
         case .libreTestnet:
             return URL(string: "https://libretestnet.greymass.com")!
-        case .ux:
-            return URL(string: "https://api.uxnetwork.io")!
+
         }
     }
 
@@ -121,7 +117,6 @@ enum Network: String, Codable, Hashable, Equatable {
         .wax,
         .proton,
         .libre,
-        .ux,
     ]
     static let testNetworks: [Self] = [
         .fioTestnet,
