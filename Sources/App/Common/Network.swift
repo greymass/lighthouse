@@ -15,10 +15,6 @@ enum Network: String, Codable, Hashable, Equatable {
     case libre
     case libreTestnet
     case ux
-    case ayetu
-    case ayetuTestnet
-    case koy
-    case koyTestnet
 
     var name: String {
         switch self {
@@ -48,14 +44,6 @@ enum Network: String, Codable, Hashable, Equatable {
             return "Libre (Testnet)"
         case .ux:
             return "UX"
-        case .ayetu:
-            return "Ayetu"
-        case .ayetuTestnet:
-            return "Ayetu (Testnet)"
-        case .koy:
-            return "KOY"
-        case .koyTestnet:
-            return "KOY (Testnet)"
         }
     }
 
@@ -87,14 +75,6 @@ enum Network: String, Codable, Hashable, Equatable {
             return "b64646740308df2ee06c6b72f34c0f7fa066d940e831f752db2006fcc2b78dee"
         case .ux:
             return "8fc6dce7942189f842170de953932b1f66693ad3788f766e777b6f9d22335c02"
-        case .ayetu:
-            return "9b06067cf9f0a293e854cbdbcf4bc0292bbf1137dd01d3d9300f403706444504"
-        case .ayetuTestnet:
-            return "38b20c9055b39035eaee7fdf450ce9b2572024bcc6d4ee8cddd50662a0cdeff1"
-        case .koy:
-            return "adf3860dc671acafa2e4ce7ab4fd90920a487e8e82a36e8b4364aad5129552cd"
-        case .koyTestnet:
-            return "181e289803751d4e0fc257fd186edaa6df8169e28631f1bf63fc9287a80cfb5f"
         }
     }
 
@@ -126,14 +106,6 @@ enum Network: String, Codable, Hashable, Equatable {
             return URL(string: "https://libretestnet.greymass.com")!
         case .ux:
             return URL(string: "https://api.uxnetwork.io")!
-        case .ayetu:
-            return URL(string: "https://mainnet.ayetu.net")!
-        case .ayetuTestnet:
-            return URL(string: "https://testnet.ayetu.net")!
-        case .koy:
-            return URL(string: "https://api.mainnet.koynetwork.io")!
-        case .koyTestnet:
-            return URL(string: "https://api.testnet.koynetwork.io")!
         }
     }
 
@@ -150,8 +122,6 @@ enum Network: String, Codable, Hashable, Equatable {
         .proton,
         .libre,
         .ux,
-        .ayetu,
-        .koy,
     ]
     static let testNetworks: [Self] = [
         .fioTestnet,
@@ -160,8 +130,6 @@ enum Network: String, Codable, Hashable, Equatable {
         .telosTestnet,
         .waxTestnet,
         .libreTestnet,
-        .ayetuTestnet,
-        .koyTestnet,
     ]
     static let allNetworks: [Self] = Self.mainNetworks + Self.testNetworks
 }
